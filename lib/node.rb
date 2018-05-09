@@ -95,7 +95,9 @@ class BinarySearchTree
 
   def max(current_node = @root)
     if current_node.right == nil
-      return current_node.movie_score
+      movie_max_score = {}
+      movie_max_score[current_node.title] = current_node.movie_score
+      return movie_max_score
     else
       current_node = current_node.right
       max(current_node)
@@ -106,10 +108,22 @@ class BinarySearchTree
 
   def min(current_node = @root)
     if current_node.left == nil
-      return current_node.movie_score
+      movie_min_score = {}
+      movie_min_score[current_node.title] = current_node.movie_score
+      return movie_min_score
     else
       current_node = current_node.left
       min(current_node)
+    end
+  end
+
+  def sort(current_node = @root, movies_ascending_order = [])
+    if current_node.left == nil
+      movies_ascending_order.push{current_node.title, current_node.movie_score}
+    elsif current_node.left =! nil
+      sort(current_node.left, movies_ascending_order)
+    elsif current_node.right =! nil
+      movies_ascending_order.push{current_node.title, current_node.movie_score}
     end
   end
 end
@@ -128,6 +142,8 @@ p tree.insert(50, "Hannibal Buress: Animal Furnace")
 p tree.include?(16)
 
 p tree.include?(72)
+
+p tree.max
 
 
 
