@@ -104,12 +104,6 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal 20,  tree.root.right.right.right.movie_score
   end
 
-  # def test_depth_of_root_node_is_0
-  #   tree = BinarySearchTree.new
-  #   tree.insert(12, "String")
-  #   assert_equal 0, tree.depth
-  # end
-  #
   def test_insert_new_node_depth_returns_zero
     tree = BinarySearchTree.new
     assert_equal 0, tree.insert(12, "String")
@@ -144,6 +138,36 @@ class BinarySearchTreeTest < Minitest::Test
     tree.insert(50, "Hannibal Buress: Animal Furnace")
     assert_equal true, tree.include?(16)
     assert_equal false, tree.include?(72)
+  end
+
+  def test_depth_of_method
+    tree = BinarySearchTree.new
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
+    tree.insert(16, "Johnny English")
+    tree.insert(92, "Sharknado 3")
+    tree.insert(50, "Hannibal Buress: Animal Furnace")
+    assert_equal 0, tree.depth_of(61)
+    assert_equal 1, tree.depth_of(16)
+    assert_equal 2, tree.depth_of(50)
+    # assert_equal nil, tree.depth_of(5)
+  end
+
+  def test_for_max
+    tree = BinarySearchTree.new
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
+    tree.insert(16, "Johnny English")
+    tree.insert(92, "Sharknado 3")
+    tree.insert(50, "Hannibal Buress: Animal Furnace")
+    assert_equal 92, tree.max
+  end
+
+  def test_for_min
+    tree = BinarySearchTree
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
+    tree.insert(16, "Johnny English")
+    tree.insert(92, "Sharknado 3")
+    tree.insert(50, "Hannibal Buress: Animal Furnace")
+    assert_equal 16, tree.min
   end
 end
 

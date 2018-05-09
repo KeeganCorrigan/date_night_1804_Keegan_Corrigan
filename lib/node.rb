@@ -1,3 +1,5 @@
+require 'pry'
+
 class Node
   attr_reader :movie_score, :title
 
@@ -25,33 +27,9 @@ class BinarySearchTree
     else
       insert_new_node(root, movie_score, title, depth = 0)
     end
-
   end
 
   def insert_new_node(current_node = @root, movie_score, title, depth)
-    depth += 1
-    if movie_score < current_node.movie_score
-      if current_node.left == nil
-        current_node.left = Node.new(movie_score, title)
-        return depth
-      else
-        current_node = current_node.left
-        insert_new_node(current_node, movie_score, title, depth)
-      end
-    elsif movie_score > current_node.movie_score
-      if current_node.right == nil
-        current_node.right = Node.new(movie_score, title)
-        return depth
-      else
-        current_node = current_node.right
-        insert_new_node(current_node, movie_score, title, depth)
-      end
-    else
-      return
-    end
-  end
-
-  def include?(current_node = @root, movie_score, title, depth)
     depth += 1
     if movie_score < current_node.movie_score
       if current_node.left == nil
@@ -93,6 +71,48 @@ class BinarySearchTree
       end
     end
   end
+
+  # depth_of doesn't deal with nil values well right now
+
+  def depth_of(current_node = @root, node_depth = 0, movie_score)
+    if current_node.movie_score == movie_score
+      return node_depth
+    elsif current_node == nil
+      return nil
+    elsif current_node.movie_score > movie_score
+      current_node = current_node.left
+      node_depth += 1
+      depth_of(current_node, node_depth, movie_score)
+    elsif current_node.movie_score < movie_score
+      current_node = current_node.right
+      node_depth += 1
+      depth_of(current_node, node_depth, movie_score)
+    end
+  end
+
+  # I get a movie_score is not a defined method error. Which is... uh... weird, to say the least.
+
+  def max(current_node = @root)
+    if current_node.right == nil
+      return current_node.movie_score
+    elsif
+      current_node.right =! nil
+      current_node = current_node.right
+      max(current_node)
+    end
+  end
+  
+  # I get a movie_score is not a defined method error. Which is... uh... weird, to say the least.
+
+  def min(current_node = @root)
+    if current_node.left == nil
+      return current_node.movie_score
+    elsif
+      current_node.left =! nil
+      current_node = current_node.left
+      min(current_node)
+    end
+  end
 end
 
 tree = BinarySearchTree.new
@@ -106,11 +126,24 @@ p tree.insert(92, "Sharknado 3")
 p tree.insert(50, "Hannibal Buress: Animal Furnace")
 # => 2
 
-# tree.include?(16)
-# => true
-# tree.include?(72)
-# => false
+p tree.include?(16)
 
+p tree.include?(72)
+
+p tree.max
+
+
+# max
+# Which movie has the highest score in the list? What is it’s score?
+#
+# tree.max
+# => {"Sharknado 3"=>92}
+
+# min
+# Which movie has the lowest score in the list? What is it’s score?
+#
+# tree.min
+# => {"Johnny English"=>16}
 
 
 
