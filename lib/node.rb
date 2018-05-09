@@ -104,8 +104,6 @@ class BinarySearchTree
     end
   end
 
-  # I get a movie_score is not a defined method error. Which is... uh... weird, to say the least.
-
   def min(current_node = @root)
     if current_node.left == nil
       movie_min_score = {}
@@ -117,124 +115,64 @@ class BinarySearchTree
     end
   end
 
-  def sort(current_node = @root, movies_ascending_order = [])
-    if current_node.left == nil
-      movies_ascending_order.push{current_node.title, current_node.movie_score}
-    elsif current_node.left =! nil
-      sort(current_node.left, movies_ascending_order)
-    elsif current_node.right =! nil
-      movies_ascending_order.push{current_node.title, current_node.movie_score}
+  # def sort(current_node = @root, movies_ascending_order = [])
+  #   # Checkes if the node to the left of the current_node is nil and inserts it into array
+  #   if current_node.left == nil
+  #     movies_ascending_order << {current_node.title => current_node.movie_score}
+  #   else
+  #     #sends the left of the current node back into the function, until the current_node.left is nil. This means every node along the path is checking to see if it has a number that is nil. Once it's completed that part of the function it inserts the node values into the movies_ascending_order array as a hash.
+  #     sort(current_node.left, movies_ascending_order)
+  #     movies_ascending_order << {current_node.title => current_node.movie_score}
+  #   end
+  #   # This part of the function has ended, so the nodes that have completed the first if/else will check the node to their right and run the sort function on those nodes.
+  #   if current_node.right =! nil
+  #     sort(current_node.right, movies_ascending_order)
+  #   end
+  #   # return movies_ascending_order
+  # end
+
+
+  def load(movie_list)
+    File.readlines(movie_list).each do |movies|
+      movies.delete("\n").split(", ").each do |movie|
+        counter = 0
+        if include?(movie[0].to_i, movie[1]) == true
+          next
+        else
+          insert_new_node(movie[0].to_i, movie[1])
+          counter += 1
+        end
+      end
     end
   end
+  # def load
+  #   movie_list = './lib/movies.txt'
+  #   File.readlines(movie_list).map do |movies|
+  #     p movies.delete("\n").split(", ").each do |movie|
+  #       counter = 0
+  #       if include?(movie[0], title[1]) == true
+  #         next
+  #       else
+  #         insert_new_node(movie[0], movie[1])
+  #         counter += 1
+  #       return
+  #       counter
+  #     end
+  #   end
+  # end
 end
 
-tree = BinarySearchTree.new
 
-p tree.insert(61, "Bill & Ted's Excellent Adventure")
-# => 0
-p tree.insert(16, "Johnny English")
-# => 1
-p tree.insert(92, "Sharknado 3")
-# => 1
-p tree.insert(50, "Hannibal Buress: Animal Furnace")
-# => 2
-
-p tree.include?(16)
-
-p tree.include?(72)
-
-p tree.max
-
-
-
-# max
-# Which movie has the highest score in the list? What is it’s score?
+# load
+# Assuming we have a file named movies.txt with one score/movie pair per line:
 #
-# tree.max
-# => {"Sharknado 3"=>92}
-
-# min
-# Which movie has the lowest score in the list? What is it’s score?
-#
-# tree.min
-# => {"Johnny English"=>16}
-
-
-
-
-
-    # elsif @root.left =! nil
-    # elsif movie_score < @root.movie_score
-    #   @root.left == nil
-    #   @root.left = Node.new(movie_score, title)
-    #   # else
-    #   #   @current_node = @current_node.left
-    #   #   insert(movie_score, title)
-    #   # end
-    # elsif movie_score > @current_node.movie_score
-    #     @current_node.right == nil
-    #     @current_node.right = Node.new(movie_score, title)
-      # else
-      #   @current_node = @current_node.right
-      #   insert(movie_score,title)
-#       end
-#     end
-#   end
-# end
-
-# tree = BinarySearchTree.new
-#
-# tree.insert(61)
-
-
-
-
-#   def push(movie_score)
-#     if @movie_score < movie_score
-#       if (@right)
-#         @right.push(movie_score)
-#       else
-#         @right = Node.new(movie_score)
-#       end
-#     else
-#       if (@left)
-#         @left.insert(movie_score)
-#       else
-#         @left = Node.new(movie_score)
-#       end
-#     end
-#   end
-# end
-
-# def insert(movie_score)
-#   if @movie_score == movie_score
-#     return node
-#   elsif movie_score < node.movie_score
-#     insert (node.left, movie_score)
-#   elsif movie_score > node.movie_score
-#     insert (node.right, movie_score)
-#   else
-#     return node = Node.new(movie_score)
-#   end
-# end
-
-
-
-
-# tree.insert(61, "Bill & Ted's Excellent Adventure")
-#  => 0
-# tree.insert(16, "Johnny English")
-#  => 1
-# tree.insert(92, "Sharknado 3")
-#  => 1
-# tree.insert(50, "Hannibal Buress: Animal Furnace")
-#  => 2
-
-# create a class called `node`
-# node should have a property called next_node and a property called value.
-# it should start as:
-# node = Node.new(48)
-# node.value (should return 48)
-# node.next_node (should return nil)
-# then you should have a method called add_node
-# if you call node.add_node(78) and then call node.next_node it should return an instance of node. If you call node.next_node.value it should return 78.
+# # movies.txt sample format:
+# 34, Hannibal Buress: Comedy Camisado
+# 63, Meet My Valentine
+# 22, Experimenter
+# 84, French Dirty
+# 41, Love
+# 10, I Love You Phillip Morris
+# tree.load('movies.txt')
+# # => 99
+# Where the return value is the number of movies inserted into the tree. If a score is already present in the tree when load is called, ignore it.
