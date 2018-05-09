@@ -92,23 +92,22 @@ class BinarySearchTree
 
   # I get a movie_score is not a defined method error. Which is... uh... weird, to say the least.
 
+
   def max(current_node = @root)
     if current_node.right == nil
       return current_node.movie_score
-    elsif
-      current_node.right =! nil
+    else
       current_node = current_node.right
       max(current_node)
     end
   end
-  
+
   # I get a movie_score is not a defined method error. Which is... uh... weird, to say the least.
 
   def min(current_node = @root)
     if current_node.left == nil
       return current_node.movie_score
-    elsif
-      current_node.left =! nil
+    else
       current_node = current_node.left
       min(current_node)
     end
@@ -130,7 +129,6 @@ p tree.include?(16)
 
 p tree.include?(72)
 
-p tree.max
 
 
 # max
