@@ -74,6 +74,25 @@ class BinarySearchTree
     end
   end
 
+  def include?(current_node = @root, movie_score)
+    if current_node.movie_score == movie_score
+      return true
+    elsif current_node.movie_score > movie_score
+      if current_node.left == nil
+        return false
+      else
+        current_node = current_node.left
+        include?(current_node, movie_score)
+      end
+    elsif current_node.movie_score < movie_score
+      if current_node.right == nil
+        return false
+      else
+        current_node = current_node.right
+        include?(current_node, movie_score)
+      end
+    end
+  end
 end
 
 tree = BinarySearchTree.new
@@ -86,6 +105,11 @@ p tree.insert(92, "Sharknado 3")
 # => 1
 p tree.insert(50, "Hannibal Buress: Animal Furnace")
 # => 2
+
+# tree.include?(16)
+# => true
+# tree.include?(72)
+# => false
 
 
 
