@@ -134,8 +134,8 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal 0, tree.depth_of(61)
     assert_equal 1, tree.depth_of(16)
     assert_equal 2, tree.depth_of(50)
-    assert_equal nil, tree.depth_of(5)
-    assert_equal nil, tree.depth_of(80)
+    assert_nil(tree.depth_of(5), nil)
+    assert_nil(tree.depth_of(80), nil)
   end
 
   def test_for_max
@@ -186,13 +186,12 @@ class BinarySearchTreeTest < Minitest::Test
     tree.insert(61, "Bill & Ted's Excellent Adventure")
     tree.insert(92, "Sharknado 3")
 
-    expected = [{"Johnny English"=>16}, {"Bill & Ted's Excellent Adventure"=>61}]
+    expected = [{"Bill & Ted's Excellent Adventure"=>61}, {"Sharknado 3"=>92}]
 
     assert_equal expected, tree.sort
   end
 
   def test_sort
-    skip
     tree = BinarySearchTree.new
     tree.insert(61, "Bill & Ted's Excellent Adventure")
     tree.insert(16, "Johnny English")

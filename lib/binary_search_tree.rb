@@ -96,17 +96,15 @@ class BinarySearchTree
 
   def sort(current_node = @root, movies_ascending_order = [])
     if current_node.left == nil
-      binding.pry
       movies_ascending_order << {current_node.title => current_node.movie_score}
     else
-      binding.pry
       sort(current_node.left, movies_ascending_order)
       movies_ascending_order << {current_node.title => current_node.movie_score}
     end
     if current_node.right != nil
-      binding.pry
       sort(current_node.right, movies_ascending_order)
     end
+    return movies_ascending_order
   end
 
   def load(movie_list)
@@ -119,33 +117,3 @@ class BinarySearchTree
     counter
   end
 end
-# def sort(current_node = @root, movies_ascending_order = [])
-#   # Checks if the node to the left of the current_node is nil and inserts it into array
-#   if current_node.left == nil
-#     movies_ascending_order << {current_node.title => current_node.movie_score}
-#   else
-#     #sends the left of the current node back into the function, until the current_node.left is nil. This means every node along the path is checking to see if it has a number that is nil. Once it's completed that part of the function it inserts the node values into the movies_ascending_order array as a hash.
-#     sort(current_node.left, movies_ascending_order)
-#     movies_ascending_order << {current_node.title => current_node.movie_score}
-#   end
-#   # This part of the function has ended, so the nodes that have completed the first if/else will check the node to their right and run the sort function on those nodes.
-#   if current_node.right =! nil
-#     sort(current_node.right, movies_ascending_order)
-#   end
-#   return movies_ascending_order
-# end
-
-
-# load
-# Assuming we have a file named movies.txt with one score/movie pair per line:
-#
-# # movies.txt sample format:
-# 34, Hannibal Buress: Comedy Camisado
-# 63, Meet My Valentine
-# 22, Experimenter
-# 84, French Dirty
-# 41, Love
-# 10, I Love You Phillip Morris
-# tree.load('movies.txt')
-# # => 99
-# Where the return value is the number of movies inserted into the tree. If a score is already present in the tree when load is called, ignore it.
