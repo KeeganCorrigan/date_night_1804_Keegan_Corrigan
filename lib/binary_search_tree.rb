@@ -24,19 +24,15 @@ class BinarySearchTree
         current_node.left = Node.new(movie_score, title)
         return depth
       else
-        current_node = current_node.left
-        insert_new_node(current_node, movie_score, title, depth)
+        insert_new_node(current_node.left, movie_score, title, depth)
       end
     elsif movie_score > current_node.movie_score
       if current_node.right == nil
         current_node.right = Node.new(movie_score, title)
         return depth
       else
-        current_node = current_node.right
-        insert_new_node(current_node, movie_score, title, depth)
+        insert_new_node(current_node.right, movie_score, title, depth)
       end
-    else
-      return
     end
   end
 
@@ -60,13 +56,11 @@ class BinarySearchTree
     end
   end
 
-  # depth_of doesn't deal with nil values well right now
-
   def depth_of(current_node = @root, node_depth = 0, movie_score)
-    if current_node.movie_score == movie_score
-      return node_depth
-    elsif current_node == nil
+    if current_node == nil
       return nil
+    elsif current_node.movie_score == movie_score
+      return node_depth
     elsif current_node.movie_score > movie_score
       current_node = current_node.left
       node_depth += 1
@@ -77,9 +71,6 @@ class BinarySearchTree
       depth_of(current_node, node_depth, movie_score)
     end
   end
-
-  # I get a movie_score is not a defined method error. Which is... uh... weird, to say the least.
-
 
   def max(current_node = @root)
     if current_node.right == nil
