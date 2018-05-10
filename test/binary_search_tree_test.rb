@@ -144,7 +144,9 @@ class BinarySearchTreeTest < Minitest::Test
     tree.insert(16, "Johnny English")
     tree.insert(92, "Sharknado 3")
     tree.insert(50, "Hannibal Buress: Animal Furnace")
+
     expected = {"Sharknado 3"=>92}
+
     assert_equal expected, tree.max
   end
 
@@ -154,18 +156,55 @@ class BinarySearchTreeTest < Minitest::Test
     tree.insert(16, "Johnny English")
     tree.insert(92, "Sharknado 3")
     tree.insert(50, "Hannibal Buress: Animal Furnace")
+
     expected = {"Johnny English"=>16}
+
     assert_equal expected, tree.min
   end
 
-  def test_sort_returns_two_values
-    skip
-    # This is really close to working. It's passing in a nil node.
+  def test_sort_works_for_1_movie
     tree = BinarySearchTree.new
     tree.insert(61, "Bill & Ted's Excellent Adventure")
-    tree.insert(40, "Bill oiasdijo")
-    tree.insert(12, "iuhasdiuh")
-    assert_equal 12, tree.sort
+
+    expected = [{"Bill & Ted's Excellent Adventure"=>61}]
+
+    assert_equal expected, tree.sort
+  end
+
+  def test_sort_works_for_2_movies_on_left
+    tree = BinarySearchTree.new
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
+    tree.insert(16, "Johnny English")
+
+    expected = [{"Johnny English"=>16}, {"Bill & Ted's Excellent Adventure"=>61}]
+
+    assert_equal expected, tree.sort
+  end
+
+  def test_sort_works_for_1_movie_on_right
+    tree = BinarySearchTree.new
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
+    tree.insert(92, "Sharknado 3")
+
+    expected = [{"Johnny English"=>16}, {"Bill & Ted's Excellent Adventure"=>61}]
+
+    assert_equal expected, tree.sort
+  end
+
+  def test_sort
+    skip
+    tree = BinarySearchTree.new
+    tree.insert(61, "Bill & Ted's Excellent Adventure")
+    tree.insert(16, "Johnny English")
+    tree.insert(92, "Sharknado 3")
+    tree.insert(50, "Hannibal Buress: Animal Furnace")
+
+    expected = [{"Johnny English"=>16},
+  {"Hannibal Buress: Animal Furnace"=>50},
+  {"Bill & Ted's Excellent Adventure"=>61},
+ {"Sharknado 3"=>92}]
+
+    assert_equal expected, tree.sort
   end
 
   def test_it_loads_a_text_file_and_increments_counter_per_movie_inserted

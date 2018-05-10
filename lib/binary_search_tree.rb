@@ -94,22 +94,20 @@ class BinarySearchTree
     end
   end
 
-  # def sort(current_node = @root, movies_ascending_order = [])
-  #   # Checkes if the node to the left of the current_node is nil and inserts it into array
-  #   if current_node.left == nil
-  #     movies_ascending_order << {current_node.title => current_node.movie_score}
-  #   else
-  #     #sends the left of the current node back into the function, until the current_node.left is nil. This means every node along the path is checking to see if it has a number that is nil. Once it's completed that part of the function it inserts the node values into the movies_ascending_order array as a hash.
-  #     sort(current_node.left, movies_ascending_order)
-  #     movies_ascending_order << {current_node.title => current_node.movie_score}
-  #   end
-  #   # This part of the function has ended, so the nodes that have completed the first if/else will check the node to their right and run the sort function on those nodes.
-  #   if current_node.right =! nil
-  #     sort(current_node.right, movies_ascending_order)
-  #   end
-  #   # return movies_ascending_order
-  # end
-
+  def sort(current_node = @root, movies_ascending_order = [])
+    if current_node.left == nil
+      binding.pry
+      movies_ascending_order << {current_node.title => current_node.movie_score}
+    else
+      binding.pry
+      sort(current_node.left, movies_ascending_order)
+      movies_ascending_order << {current_node.title => current_node.movie_score}
+    end
+    if current_node.right != nil
+      binding.pry
+      sort(current_node.right, movies_ascending_order)
+    end
+  end
 
   def load(movie_list)
     counter = 0
@@ -118,9 +116,24 @@ class BinarySearchTree
       insert(movie_to_insert[0].to_i, movie_to_insert[1].to_s)
       counter += 1
     end
-    return counter
+    counter
   end
 end
+# def sort(current_node = @root, movies_ascending_order = [])
+#   # Checks if the node to the left of the current_node is nil and inserts it into array
+#   if current_node.left == nil
+#     movies_ascending_order << {current_node.title => current_node.movie_score}
+#   else
+#     #sends the left of the current node back into the function, until the current_node.left is nil. This means every node along the path is checking to see if it has a number that is nil. Once it's completed that part of the function it inserts the node values into the movies_ascending_order array as a hash.
+#     sort(current_node.left, movies_ascending_order)
+#     movies_ascending_order << {current_node.title => current_node.movie_score}
+#   end
+#   # This part of the function has ended, so the nodes that have completed the first if/else will check the node to their right and run the sort function on those nodes.
+#   if current_node.right =! nil
+#     sort(current_node.right, movies_ascending_order)
+#   end
+#   return movies_ascending_order
+# end
 
 
 # load
