@@ -1,7 +1,8 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/binary_search_tree'
-require 'pry'
+require 'simplecov'
+SimpleCov.start
 
 class BinarySearchTreeTest < Minitest::Test
   def test_Binary_search_tree_can_be_initialized
@@ -41,76 +42,13 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal 15, tree.root.right.movie_score
   end
 
-  def test_insert_method_assigns_left_left_node
+  def test_insert_method
     tree = BinarySearchTree.new
-    tree.insert(12, "String")
-    tree.insert(10, "Second String")
-    tree.insert(15, "Third String")
-    tree.insert(9, "Fourth String")
-    assert_equal 9, tree.root.left.left.movie_score
-  end
-
-  def test_insert_method_assigns_left_left_left_node
-    tree = BinarySearchTree.new
-    tree.insert(12, "String")
-    tree.insert(10, "Second String")
-    tree.insert(15, "Third String")
-    tree.insert(9, "Fourth String")
-    tree.insert(8, "Fifth String")
-    assert_equal 8, tree.root.left.left.left.movie_score
-  end
-
-  def test_insert_method_assigns_right_right_node
-    tree = BinarySearchTree.new
-    tree.insert(12, "String")
-    tree.insert(15, "Third String")
-    tree.insert(18, "Thirs String")
-    assert_equal 18, tree.root.right.right.movie_score
-  end
-
-  def test_insert_method_assigns_right_right_node
-    tree = BinarySearchTree.new
-    tree.insert(12, "String")
-    tree.insert(15, "Third String")
-    tree.insert(10, "second String")
-    tree.insert(18, "Thirs String")
-    assert_equal 18, tree.root.right.right.movie_score
-  end
-
-  def test_insert_method_assigns_right_right_right_node
-    tree = BinarySearchTree.new
-    tree.insert(12, "String")
-    tree.insert(15, "Third String")
-    tree.insert(10, "second String")
-    tree.insert(18, "Thirs String")
-    tree.insert(20, "A different film")
-    assert_equal 20,  tree.root.right.right.right.movie_score
-  end
-
-  def test_insert_new_node_depth
-    tree = BinarySearchTree.new
-    assert_equal 0, tree.insert(12, "String")
-  end
-
-  def test_insert_new_node_increments_to_1
-    tree = BinarySearchTree.new
-    tree.insert(12, "String")
-    assert_equal 1, tree.insert(24, "Stringnig")
-  end
-
-  def test_insert_new_node_increments_to_2
-    tree = BinarySearchTree.new
-    tree.insert(12, "String")
-    tree.insert(24, "Stringnig")
-    assert_equal 2, tree.insert(34, "Stringy the third")
-  end
-
-  def test_insert_new_node_increments_correctly_left_and_right
-    tree = BinarySearchTree.new
-    tree.insert(12, "String")
-    tree.insert(24, "Stringnig")
-    tree.insert(10, "Stringy the third")
-    tree.insert(8, "Stringy the third")
+    assert_equal 0, tree.insert(61, "Bill & Ted's Excellent Adventure")
+    assert_equal 1, tree.insert(16, "Johnny English")
+    assert_equal 1, tree.insert(92, "Sharknado 3")
+    assert_equal 2, tree.insert(50, "Hannibal Buress: Animal Furnace")
+    assert_equal 3, tree.insert(55, "The edge case")
   end
 
   def test_include_method
@@ -134,6 +72,7 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal 0, tree.depth_of(61)
     assert_equal 1, tree.depth_of(16)
     assert_equal 2, tree.depth_of(50)
+    assert_equal 1, tree.depth_of(92)
     assert_nil(tree.depth_of(5), nil)
     assert_nil(tree.depth_of(80), nil)
   end
@@ -206,7 +145,7 @@ class BinarySearchTreeTest < Minitest::Test
     assert_equal expected, tree.sort
   end
 
-  def test_it_loads_a_text_file_and_increments_counter_per_movie_inserted
+  def test_it_loads_a_text_file_and_increments_counter_per_movie_inserted_into_tree
     tree = BinarySearchTree.new
     assert_equal 99, tree.load('./lib/movies.txt')
   end

@@ -1,6 +1,8 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/node'
+require 'simplecov'
+SimpleCov.start
 
 class NodeTest < Minitest::Test
   def test_node_exists

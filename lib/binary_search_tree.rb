@@ -1,7 +1,6 @@
-require 'pry'
-
 class BinarySearchTree
   require './lib/node.rb'
+
   attr_accessor :root
 
   def initialize
@@ -43,15 +42,13 @@ class BinarySearchTree
       if current_node.left == nil
         return false
       else
-        current_node = current_node.left
-        include?(current_node, movie_score)
+        include?(current_node.left, movie_score)
       end
     elsif current_node.movie_score < movie_score
       if current_node.right == nil
         return false
       else
-        current_node = current_node.right
-        include?(current_node, movie_score)
+        include?(current_node.right, movie_score)
       end
     end
   end
@@ -62,13 +59,11 @@ class BinarySearchTree
     elsif current_node.movie_score == movie_score
       return node_depth
     elsif current_node.movie_score > movie_score
-      current_node = current_node.left
       node_depth += 1
-      depth_of(current_node, node_depth, movie_score)
+      depth_of(current_node.left, node_depth, movie_score)
     elsif current_node.movie_score < movie_score
-      current_node = current_node.right
       node_depth += 1
-      depth_of(current_node, node_depth, movie_score)
+      depth_of(current_node.right, node_depth, movie_score)
     end
   end
 
@@ -78,8 +73,7 @@ class BinarySearchTree
       movie_max_score[current_node.title] = current_node.movie_score
       return movie_max_score
     else
-      current_node = current_node.right
-      max(current_node)
+      return max(current_node.right)
     end
   end
 
@@ -89,8 +83,7 @@ class BinarySearchTree
       movie_min_score[current_node.title] = current_node.movie_score
       return movie_min_score
     else
-      current_node = current_node.left
-      min(current_node)
+      return min(current_node.left)
     end
   end
 
@@ -114,6 +107,6 @@ class BinarySearchTree
       insert(movie_to_insert[0].to_i, movie_to_insert[1].to_s)
       counter += 1
     end
-    counter
+    return counter
   end
 end
